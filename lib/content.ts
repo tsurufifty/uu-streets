@@ -36,8 +36,13 @@ import {
   routePoints as staticRoutePoints,
   type RoutePoint,
 } from '@/data/route';
+import {
+  events as staticEvents,
+  type Event,
+  type EventAccent,
+} from '@/data/events';
 
-export type { Artist, GastroPoint, GalleryPhoto, RoutePoint };
+export type { Artist, GastroPoint, GalleryPhoto, RoutePoint, Event, EventAccent };
 
 /* -------------------------------------------------------------------------- */
 /*                                  ARTISTS                                    */
@@ -241,5 +246,59 @@ export async function getRoutePointBySlug(
   } catch (err) {
     console.warn('[content] getRoutePointBySlug fallback:', err);
     return staticRoutePoints.find((p) => p.slug === slug) ?? null;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  EVENTS                                     */
+/* -------------------------------------------------------------------------- */
+
+const ALLOWED_ACCENTS: EventAccent[] = ['rust', 'acid', 'paper', 'dark'];
+
+function mapEvent(raw: any): Event {
+  const e = flattenStrapi<any>(raw);
+  const accent: EventAccent = ALLOWED_ACCENTS.includes(e.accent)
+    ? e.accent
+    : 'rust';
+  return {
+    id: e.id ?? 0,
+    slug: e.slug,
+    date: e.date ?? '',
+    month: e.month ?? '',
+    year: e.year ?? '',
+    day: e.day ?? '',
+    title: e.title ?? '',
+    subtitle: e.subtitle ?? '',
+    venue: e.venue ?? '',
+    time: e.time ?? '',
+    tags: Array.isArray(e.tags) ? e.tags : [],
+    lineup: Array.isArray(e.lineup) ? e.lineup : undefined,
+    description: Array.isArray(e.description) ? e.description : [],
+    accent,
+    rotate: Number(e.rotate) || 0,
+    link:
+      e.linkHref && e.linkLabel
+        ? { href: e.linkHref, label: e.linkLabel }
+        : undefined,
+    source: e.source ?? '',
+    poster:
+      e.poster || e.posterPath
+        ? getStrapiImageUrl(e.poster, e.posterPath)
+        : undefined,
+    sortOrder: e.sortOrder ?? 0,
+  };
+}
+
+export async function getEvents(): Promise<Event[]> {
+  if (!isStrapiConfigured()) return staticEvents;
+  try {
+    const data = await fetchStrapi<any[]>('/events', {
+      'sort[0]': 'sortOrder:asc',
+    });
+    const list = flattenStrapiList<any>(data).map(mapEvent);
+    return list.length > 0 ? list : staticEvents;
+  } catch (err) {
+    console.warn('[content] getEvents fallback to static:', err);
+    return staticEvents;
   }
 }

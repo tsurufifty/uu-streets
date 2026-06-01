@@ -66,7 +66,7 @@ export function VideoHero() {
       {/* VIDEO */}
       <video
         ref={videoRef}
-        src="/videos/promouu03.mp4"
+        src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/videos/promouu03.mp4"}
         autoPlay
         loop
         muted
