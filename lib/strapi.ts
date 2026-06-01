@@ -23,11 +23,17 @@ export function isStrapiConfigured(): boolean {
  * Низкоуровневый запрос к Strapi REST API.
  * По умолчанию делает populate=* и ISR-кэш на 60 секунд.
  *
+ * Имеет таймаут 5 секунд (AbortController) — чтобы билд на Vercel не висел
+ * при недоступной CMS. По истечении таймаута бросает ошибку, которую
+ * lib/content.ts ловит и падает на статический фоллбэк.
+ *
  * Бросает ошибку, если Strapi вернул не-OK или если STRAPI_URL не задан.
  *
  * @example
  *   const items = await fetchStrapi<Artist[]>('/artists', { 'sort[0]': 'number:asc' })
  */
+const STRAPI_TIMEOUT_MS = 5000;
+
 export async function fetchStrapi<T = any>(
   path: string,
   params: Record<string, string> = {},
@@ -43,24 +49,39 @@ export async function fetchStrapi<T = any>(
   const merged = { populate: '*', ...params };
   url.search = new URLSearchParams(merged).toString();
 
-  const res = await fetch(url.toString(), {
-    ...init,
-    headers: {
-      ...(init?.headers || {}),
-      ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
-    },
-    next: { revalidate: 60, ...(init?.next || {}) },
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), STRAPI_TIMEOUT_MS);
 
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(
-      `Strapi ${res.status} ${res.statusText} :: ${path} :: ${body.slice(0, 200)}`
-    );
+  try {
+    const res = await fetch(url.toString(), {
+      ...init,
+      signal: controller.signal,
+      headers: {
+        ...(init?.headers || {}),
+        ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
+      },
+      next: { revalidate: 60, ...(init?.next || {}) },
+    });
+
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(
+        `Strapi ${res.status} ${res.statusText} :: ${path} :: ${body.slice(0, 200)}`
+      );
+    }
+
+    const json = await res.json();
+    return json.data as T;
+  } catch (err: any) {
+    if (err?.name === 'AbortError') {
+      throw new Error(
+        `Strapi timeout ${STRAPI_TIMEOUT_MS}ms :: ${path} :: ${STRAPI_URL} недоступен`
+      );
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeout);
   }
-
-  const json = await res.json();
-  return json.data as T;
 }
 
 /**
