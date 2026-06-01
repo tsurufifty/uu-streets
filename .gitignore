@@ -39,8 +39,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# heavy media (хранится вне репо: облачное хранилище / CDN)
-public/videos/
-*.mp4
-*.mov
-*.webm
+# heavy media (>100 МБ — лимит GitHub). Маленькие .mp4 коммитим как обычно.
+# public/videos/big-files/
+
