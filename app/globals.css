@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Gotham Pro", "Impact", sans-serif;
+  --font-body: "Gotham Pro", system-ui, sans-serif;
+  --font-mono: "Gotham Pro", monospace;
+}
+
+/* ============ GOTHAM PRO ============ */
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/fonts/gothampro_light.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: italic;
+  font-weight: 300;
+  src: url("/fonts/gothampro_lightitalic.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/gothampro.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/fonts/gothampro_italic.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/gothampro_medium.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: italic;
+  font-weight: 500;
+  src: url("/fonts/gothampro_mediumitalic.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/gothampro_bold.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: italic;
+  font-weight: 700;
+  src: url("/fonts/gothampro_bolditalic.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/fonts/gothampro_black.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham Pro";
+  font-style: italic;
+  font-weight: 900;
+  src: url("/fonts/gothampro_blackitalic.ttf") format("truetype");
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink-950 text-ink-50 font-body antialiased;
+    background-image:
+      radial-gradient(ellipse at top, rgba(168, 58, 44, 0.12), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(184, 230, 44, 0.04), transparent 50%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+  ::selection {
+    @apply bg-rust-500 text-ink-50;
+  }
+  /* Все display-надписи используют Gotham Pro Bold по умолчанию */
+  .font-display {
+    font-weight: 700;
+  }
+  /* Только большие заголовки — Black weight + чуть менее агрессивный tracking, чтобы кириллица не вылезала за столбцы */
+  h1.font-display,
+  h2.font-display {
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: manual;
+  }
+  /* Чуть больше воздуха для крупных line-height */
+  .text-mega,
+  .text-huge {
+    padding-bottom: 0.08em;
+  }
+}
+
+@layer components {
+  /* ---- GRUNGE BACKGROUNDS ---- */
+  .grunge-bg {
+    position: relative;
+    background-color: #0a0908;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+  }
+
+  .paper-card {
+    position: relative;
+    background-color: #f5f1ea;
+    color: #16140f;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.35 0 0 0 0 0.28 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+    box-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.05) inset,
+      0 30px 60px -20px rgba(0, 0, 0, 0.6),
+      0 8px 20px -8px rgba(0, 0, 0, 0.4);
+  }
+
+  .paper-card.torn-edges {
+    clip-path: polygon(
+      0% 2%, 3% 0%, 8% 1%, 14% 0%, 22% 2%, 30% 0%, 40% 1%, 50% 0%,
+      62% 1%, 72% 0%, 82% 2%, 91% 0%, 97% 1%, 100% 3%,
+      99% 12%, 100% 25%, 99% 40%, 100% 55%, 99% 70%, 100% 85%, 99% 97%,
+      96% 100%, 88% 99%, 78% 100%, 68% 99%, 58% 100%, 48% 99%, 38% 100%, 28% 99%, 18% 100%, 9% 99%, 2% 100%,
+      1% 90%, 0% 75%, 1% 60%, 0% 45%, 1% 30%, 0% 15%
+    );
+  }
+
+  /* ---- NOISE OVERLAY ---- */
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+
+  .noise-fixed::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.7;
+  }
+
+  /* ---- GRAFFITI TEXT (для UU-STREETS hero) ---- */
+  .graffiti-text {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-stroke: 2px #f5f1ea;
+    text-shadow:
+      4px 4px 0 #a83a2c,
+      8px 8px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  /* ---- TAPE ---- */
+  .tape {
+    position: absolute;
+    background: rgba(245, 220, 130, 0.55);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+    backdrop-filter: blur(1px);
+  }
+
+  /* ---- VERTICAL TEXT ---- */
+  .text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* ---- MARQUEE ---- */
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    animation: scroll-x 40s linear infinite;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .skew-down {
+    transform: skewY(-2deg);
+  }
+}
