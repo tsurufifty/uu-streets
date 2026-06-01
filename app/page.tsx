@@ -18,13 +18,10 @@ export default async function HomePage() {
       <PlatformHero />
       <Marquee
         items={[
-          "UU STREETS",
-          "Underground music",
-          "Граффити маршруты",
-          "Street food",
-          "Бурятский фольклор 2.0",
-          "Афиша города",
-          "Улан-Удэ говорит",
+          "Культура",
+          "Еда",
+          "Музыка",
+          "Улицы",
         ]}
       />
       <div id="tourism" />

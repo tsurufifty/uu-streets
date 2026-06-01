@@ -76,7 +76,7 @@ export function TourismPreview() {
             <Reveal delay={0.15}>
               <div className="relative h-[440px] overflow-hidden border border-smoke-700 shadow-[10px_10px_0_#0a0908] md:h-[520px]">
                 <Image
-                  src="/gallery/3.jpg"
+                  src="/gallery/tourism-hero.jpg"
                   alt="UU streets graffiti"
                   fill
                   sizes="(max-width: 1024px) 100vw, 60vw"
