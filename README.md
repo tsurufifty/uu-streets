@@ -126,11 +126,11 @@ npm run start    # запуск продакшн-сборки
 
 ## Деплой
 
-### Vercel (рекомендуется)
+### Vercel
 
 1. Импортируйте репозиторий на [vercel.com/new](https://vercel.com/new).
 2. Vercel сам определит Next.js, ничего настраивать не надо.
 3. В **Environment Variables** добавьте переменные из `.env.local` (как минимум `NEXT_PUBLIC_STRAPI_URL`, если Strapi уже задеплоен).
 4. Deploy.
 
-Strapi удобно деплоить на Strapi Cloud, Railway или собственный VPS — подробнее в [DEPLOY_GUIDE.md](./DEPLOY_GUIDE.md).
+
