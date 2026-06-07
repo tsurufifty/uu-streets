@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/Reveal";
+import { type RoutePoint } from "@/data/route";
 
 const TAGS = [
   "граффити маршруты",
@@ -13,13 +14,29 @@ const TAGS = [
   "дворы / гаражи / фасады",
 ];
 
-const POINTS = [
+// Фоллбэк, если из БД ничего не пришло.
+const FALLBACK_POINTS = [
   { n: "01", title: "Поэт под слоем краски", note: "Ленина 63" },
   { n: "02", title: "Двор патриотов", note: "Модогоева" },
   { n: "03", title: "Мозаика рабочих", note: "Революция 1905 года 68" },
 ];
 
-export function TourismPreview() {
+interface TourismPreviewProps {
+  points?: RoutePoint[];
+}
+
+export function TourismPreview({ points }: TourismPreviewProps = {}) {
+  // Первые 3 точки маршрута для тизера; всего точек — для бейджа.
+  const total = points && points.length > 0 ? points.length : 9;
+  const POINTS =
+    points && points.length > 0
+      ? points.slice(0, 3).map((p) => ({
+          n: p.number,
+          title: p.title,
+          note: p.location,
+        }))
+      : FALLBACK_POINTS;
+
   return (
     <section className="relative overflow-hidden bg-ink-950 py-24 md:py-32 noise-overlay">
       {/* Декоративные diagonal slabs */}
@@ -87,7 +104,7 @@ export function TourismPreview() {
 
                 {/* overlay badge */}
                 <div className="absolute left-6 top-6 bg-acid-500 px-3 py-1 font-display text-xs uppercase tracking-widest text-ink-950 shadow-[4px_4px_0_#0a0908]">
-                  09 точек / квест
+                  {String(total).padStart(2, "0")} точек / квест
                 </div>
 
                 {/* sticky points */}

@@ -5,18 +5,20 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/Reveal";
+import { type Event as EventItem } from "@/data/events";
 
-type Event = {
+type PosterEvent = {
   date: string;
   month: string;
   title: string;
   venue: string;
   tag: string;
   rotate: number;
-  accent: "rust" | "acid" | "paper";
+  accent: "rust" | "acid" | "paper" | "dark";
 };
 
-const EVENTS: Event[] = [
+// Фоллбэк, если из БД ничего не пришло.
+const FALLBACK_EVENTS: PosterEvent[] = [
   {
     date: "05",
     month: "JUL",
@@ -37,7 +39,7 @@ const EVENTS: Event[] = [
   },
 ];
 
-const accents: Record<Event["accent"], { bg: string; text: string; chip: string; shadow: string }> = {
+const accents: Record<PosterEvent["accent"], { bg: string; text: string; chip: string; shadow: string }> = {
   rust: {
     bg: "bg-rust-500",
     text: "text-ink-50",
@@ -56,9 +58,33 @@ const accents: Record<Event["accent"], { bg: string; text: string; chip: string;
     chip: "bg-ink-950 text-rust-400 border border-rust-500/40",
     shadow: "shadow-[8px_8px_0_#0a0908]",
   },
+  dark: {
+    bg: "bg-ink-950 border border-smoke-600",
+    text: "text-ink-50",
+    chip: "bg-ink-950 text-acid-400 border border-acid-500/50",
+    shadow: "shadow-[8px_8px_0_#0a0908]",
+  },
 };
 
-export function EventsPreview() {
+interface EventsPreviewProps {
+  events?: EventItem[];
+}
+
+export function EventsPreview({ events }: EventsPreviewProps = {}) {
+  // Первые 2 события для тизера-постеров.
+  const EVENTS: PosterEvent[] =
+    events && events.length > 0
+      ? events.slice(0, 2).map((e) => ({
+          date: e.date,
+          month: e.month,
+          title: e.title,
+          venue: e.venue,
+          tag: (e.tags ?? []).join(" · "),
+          rotate: e.rotate ?? 0,
+          accent: e.accent,
+        }))
+      : FALLBACK_EVENTS;
+
   return (
     <section id="events" className="relative overflow-hidden bg-ink-950 py-24 md:py-32 noise-overlay">
       {/* HUGE bg text */}

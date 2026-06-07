@@ -4,15 +4,32 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/Reveal";
+import { type GastroPoint } from "@/data/gastro";
 
-const SPOTS = [
+// Фоллбэк, если из БД ничего не пришло.
+const FALLBACK_SPOTS = [
   { n: "01", name: "Орда",        cat: "бурятское",    note: "буузы, бухлёр, караоке" },
   { n: "02", name: "Кенигсберг",  cat: "ресторан",     note: "стейки, мидии, рейтинг 4.7" },
   { n: "03", name: "Мэргэн",      cat: "пивоварня",    note: "шведский стол, до 180 мест" },
   { n: "04", name: "Чаплин",      cat: "рестоклуб",    note: "гриль, танцпол, до 04:00" },
 ];
 
-export function GastroPreview() {
+interface GastroPreviewProps {
+  points?: GastroPoint[];
+}
+
+export function GastroPreview({ points }: GastroPreviewProps = {}) {
+  // Первые 4 точки для тизера.
+  const SPOTS =
+    points && points.length > 0
+      ? points.slice(0, 4).map((p) => ({
+          n: p.number,
+          name: p.name,
+          cat: p.category,
+          note: p.short || (p.tags ?? []).join(", "),
+        }))
+      : FALLBACK_SPOTS;
+
   return (
     <section className="relative overflow-hidden py-24 md:py-32 grunge-bg">
       {/* neon haze */}
