@@ -17,7 +17,6 @@ const SECTIONS = [
       { href: "/about", label: "О нас" },
       { href: "/gallery", label: "Фотогалерея" },
       { href: "/#about", label: "Манифест" },
-      { href: "/contacts", label: "Контакты" },
     ],
   },
 ];

@@ -15,7 +15,7 @@ const linksLeft = [
 const linksRight = [
   { href: "/events", label: "Афиша" },
   { href: "/music", label: "Музыка" },
-  { href: "/contacts", label: "Контакты" },
+  { href: "/about", label: "О нас" },
 ];
 
 const allLinks = [...linksLeft, ...linksRight];

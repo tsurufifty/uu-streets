@@ -80,8 +80,7 @@ export default function AboutPage() {
             </h2>
             <p>
               Нашёл стену, артиста, заведение или событие, которое стоит
-              добавить? Пиши с пометкой «UUSTREETS»: <a href="mailto:bgsha@bgsha.ru" className="text-rust-400 underline hover:text-rust-500">bgsha@bgsha.ru</a>{" "}
-              — или загляни на страницу <Link href="/contacts" className="text-rust-400 underline hover:text-rust-500">Контакты</Link>.
+              добавить? Пиши с пометкой «UUSTREETS»: <a href="mailto:bgsha@bgsha.ru" className="text-rust-400 underline hover:text-rust-500">bgsha@bgsha.ru</a>.
             </p>
           </div>
 

@@ -57,7 +57,7 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
             <p className="mt-4 text-sm text-ink-100/60">
               Зайди позже — или предложи своё событие через контакты.
             </p>
-            <Link href="/contacts" className="mt-6 inline-block">
+            <Link href="/about" className="mt-6 inline-block">
               <Button variant="primary" size="md">
                 Добавить событие →
               </Button>
@@ -219,7 +219,7 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
                       Расскажи нам про концерт, выставку или джем
                     </h3>
                   </div>
-                  <Link href="/contacts" className="md:justify-self-end">
+                  <Link href="/about" className="md:justify-self-end">
                     <Button variant="primary" size="md">
                       Добавить событие →
                     </Button>
