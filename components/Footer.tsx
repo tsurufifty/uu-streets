@@ -29,9 +29,9 @@ export function Footer() {
           <div className="md:col-span-2">
             <Logo size={56} />
             <p className="mt-6 max-w-md text-sm leading-relaxed text-ink-100/70">
-              UU STREETS — digital culture portal про уличную культуру Улан-Удэ.
-              Граффити, underground-музыка, локальная еда и события — экосистема
-              одного города.
+              UU-STREETS — Туристический современный медиа-портал об уличной
+              культуре (андерграунд) Улан-Удэ. Мы показываем вам о том, как
+              живёт город прямо сейчас.
             </p>
           </div>
 
