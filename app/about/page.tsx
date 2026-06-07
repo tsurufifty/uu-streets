@@ -18,8 +18,8 @@ export default function AboutPage() {
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg text-ink-100/70">
-            UU-STREETS — digital culture portal про уличную культуру Улан-Удэ.
-            Не туристический сайт, а underground media-проект о том, как
+            UU-STREETS — Туристический современный медиа-портал об уличной
+            культуре (андерграунд) Улан-Удэ. Мы показываем вам о том, как
             живёт город прямо сейчас.
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function AboutPage() {
               <span className="bg-rust-500 px-2 font-display uppercase text-ink-50">
                 туризм, гастро, афиша и музыка
               </span>
-              . Девять точек на маршруте, гастро-карта, события, локальные
+              . Граффити-маршрут, гастро-карта, события, локальные
               артисты — это разные стороны одной уличной экосистемы.
             </p>
 
@@ -47,33 +47,6 @@ export default function AboutPage() {
               остаётся открытой платформой — авторами становятся те, кто
               живёт и творит на этих улицах.
             </p>
-
-            <div className="my-12 grid gap-6 md:grid-cols-4">
-              <div className="border border-smoke-700 bg-smoke-800/40 p-6">
-                <div className="font-display text-4xl text-rust-400">04</div>
-                <div className="mt-2 font-medium text-xs uppercase tracking-[0.2em] text-ink-100/70">
-                  направления
-                </div>
-              </div>
-              <div className="border border-smoke-700 bg-smoke-800/40 p-6">
-                <div className="font-display text-4xl text-rust-400">09</div>
-                <div className="mt-2 font-medium text-xs uppercase tracking-[0.2em] text-ink-100/70">
-                  точек маршрута
-                </div>
-              </div>
-              <div className="border border-smoke-700 bg-smoke-800/40 p-6">
-                <div className="font-display text-4xl text-rust-400">2026</div>
-                <div className="mt-2 font-medium text-xs uppercase tracking-[0.2em] text-ink-100/70">
-                  год запуска
-                </div>
-              </div>
-              <div className="border border-smoke-700 bg-smoke-800/40 p-6">
-                <div className="font-display text-4xl text-rust-400">∞</div>
-                <div className="mt-2 font-medium text-xs uppercase tracking-[0.2em] text-ink-100/70">
-                  слоёв краски
-                </div>
-              </div>
-            </div>
 
             <h2 className="font-display text-3xl uppercase text-ink-50 md:text-4xl">
               Контакты
